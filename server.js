@@ -1,34 +1,26 @@
-var express = require('express');
-
-var app = express.createServer();
-var io = require('socket.io').listen(app);
+var express = require("express");
+var app = express();
+var port = 3700;
 var online = 0;
 
-app.listen(3000, function () {
-    console.log('Server is running', 3000)
-});
+var io = require('socket.io').listen(app.listen(port));
+console.log("Listening on port " + port);
+
 
 io.sockets.on('connection', function (socket) {
+    socket.emit('welcome', { message: 'welcome to the BeerCoders chat' });
     online += 1;
-    socket.broadcast.emit('online', online);
+    socket.emit('online', online);
+    console.log("connection => Online: ", online);
+
+    socket.on('message', function(message) {
+        console.log(message);
+        socket.emit('message', message);
+    });
+
+    socket.on('disconnect', function () {
+        online -= 1;
+        socket.emit('online', online);
+        console.log("disconnect => Online: ",online);
+    });
 });
-
-socket.on('disconnect', function () {
-
-    socket.emit('disconnected');
-    online -= 1;
-    socket.broadcast.emit('online', online);
-});
-
-socket.on('setNick', function (data) {
-    socket.set('nick', data);
-});
-
-socket.on('message', function (message) {
-    socket.get('nick', function (error, name) {
-        var data = { 'message' : message, nick : name };
-        socket.broadcast.emit('message', data);
-        console.log("user " + name + " send this : " + message);
-    })
-});
-
