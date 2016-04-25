@@ -8,19 +8,22 @@ console.log("Listening on port " + port);
 
 
 io.sockets.on('connection', function (socket) {
-    socket.emit('welcome', { message: 'welcome to the BeerCoders chat' });
     online += 1;
-    socket.emit('online', online);
+    socket.broadcast.emit('online', online);
     console.log("connection => Online: ", online);
 
     socket.on('message', function(message) {
         console.log(message);
-        socket.emit('message', message);
+        socket.broadcast.emit('message', message);
+    });
+
+    socket.on('getOnline', function(message) {
+        socket.broadcast.emit('online', online);
     });
 
     socket.on('disconnect', function () {
         online -= 1;
-        socket.emit('online', online);
+        socket.broadcast.emit('online', online);
         console.log("disconnect => Online: ",online);
     });
 });
