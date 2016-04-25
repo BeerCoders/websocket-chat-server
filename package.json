@@ -1,0 +1,29 @@
+{
+  "name": "websocket-chat-server",
+  "version": "1.0.0",
+  "description": "Node.js websocket chat server",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/BeerCoders/websocket-chat-server.git"
+  },
+  "keywords": [
+    "websocket",
+    "chat",
+    "server",
+    "socket.io"
+  ],
+  "author": "BeerCoders <contact@beercoders.pl",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/BeerCoders/websocket-chat-server/issues"
+  },
+  "homepage": "https://github.com/BeerCoders/websocket-chat-server#readme",
+  "dependencies": {
+    "express": "^4.13.4",
+    "socket.io": "^1.4.5"
+  }
+}
