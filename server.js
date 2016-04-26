@@ -18,7 +18,7 @@ io.sockets.on('connection', function (socket) {
     });
 
     socket.on('getOnline', function(message) {
-        socket.broadcast.emit('online', online);
+        socket.emit('online', online);
     });
 
     socket.on('disconnect', function () {
